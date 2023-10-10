@@ -38,9 +38,9 @@ udpMaxPayloadSize: 1472
 externalAuthenticationURL:
 
 # Enable the HTTP API.
-api: no
+api: yes
 # Address of the API listener.
-apiAddress: 127.0.0.1:9997
+apiAddress: 0.0.0.0:9997
 
 # Enable Prometheus-compatible metrics.
 metrics: no
@@ -99,13 +99,13 @@ serverKey: server.key
 serverCert: server.crt
 # Authentication methods. Available are "basic" and "digest".
 # "digest" doesn't provide any additional security and is available for compatibility reasons only.
-authMethods: [basic]
+authMethods: [basic, digest]
 
 ###############################################
 # RTMP settings
 
 # Allow publishing and reading streams with the RTMP protocol.
-rtmp: yes
+rtmp: no
 # Address of the RTMP listener. This is needed only when encryption is "no" or "optional".
 rtmpAddress: :1935
 # Encrypt connections with TLS (RTMPS).
@@ -140,7 +140,7 @@ hlsServerKey: server.key
 hlsServerCert: server.crt
 # By default, HLS is generated only when requested by a user.
 # This option allows to generate it always, avoiding the delay between request and generation.
-hlsAlwaysRemux: no
+hlsAlwaysRemux: yes
 # Variant of the HLS protocol to use. Available options are:
 # * mpegts - uses MPEG-TS segments, for maximum compatibility.
 # * fmp4 - uses fragmented MP4 segments, more efficient.
@@ -183,7 +183,7 @@ hlsDirectory: ''
 # WebRTC settings
 
 # Allow publishing and reading streams with the WebRTC protocol.
-webrtc: yes
+webrtc: no
 # Address of the WebRTC listener.
 webrtcAddress: :8889
 # Enable TLS/HTTPS on the WebRTC server.
@@ -232,7 +232,7 @@ webrtcICETCPMuxAddress:
 # SRT settings
 
 # Allow publishing and reading streams with the SRT protocol.
-srt: yes
+srt: no
 # Address of the SRT listener.
 srtAddress: :8890
 
@@ -246,7 +246,7 @@ srtAddress: :8890
 # Settings under the path "all" are applied to all paths that do not match
 # another entry.
 paths:
-  all:
+  default:
     ###############################################
     # General path settings
 
@@ -317,7 +317,7 @@ paths:
     # RTSP path settings (when source is a RTSP or a RTSPS URL)
 
     # protocol used to pull the stream. available values are "automatic", "udp", "multicast", "tcp".
-    sourceProtocol: automatic
+    sourceProtocol: tcp
     # support sources that don't provide server ports or use random server ports. This is a security issue
     # and must be used only when interacting with sources that require it.
     sourceAnyPortEnable: no
